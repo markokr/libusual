@@ -112,7 +112,7 @@ jobs:
 
       - name: "Make"
         shell: bash
-        run: make
+        run: make V=1
 
       - name: "Install"
         shell: bash
@@ -121,7 +121,7 @@ jobs:
       - name: "Test"
         shell: bash
         run: |
-          make -C test all
+          make -C test all V=1
           cd test && ./regtest_system
           make regtest_system
           make regtest_compat
