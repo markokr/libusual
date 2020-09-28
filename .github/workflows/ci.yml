@@ -121,8 +121,7 @@ jobs:
       - name: "Test"
         shell: bash
         run: |
-          make -C test all V=1
-          cd test && ./regtest_system
-          make regtest_system
-          make regtest_compat
+          cd test
+          make
+          ./regtest_system
 
