@@ -1,0 +1,117 @@
+#
+# https://docs.github.com/en/actions
+# https://github.com/actions
+#
+# mac: https://brew.sh/
+# win: https://www.msys2.org/docs/package-management/
+# win: https://www.archlinux.org/pacman/pacman.8.html
+#
+
+name: CI
+
+on:
+  pull_request: {}
+  push: {}
+
+jobs:
+
+  test:
+    name: unix
+    if: false
+    #name: ${{matrix.test.os}}
+    runs-on: ${{matrix.test.os}}
+    strategy:
+      matrix:
+        test:
+          - {os: "ubuntu-16.04"}
+          - {os: "ubuntu-18.04"}
+          - {os: "ubuntu-20.04"}
+          - {os: "macos-10.15"}
+          - {os: "macos-10.15"}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Setup / Linux"
+        if: ${{runner.os == 'Linux'}}
+        run: |
+          echo "::group::apt-get-update"
+          sudo -nH apt-get -q update
+          echo "::endgroup::"
+
+          echo "::group::apt-get-install"
+
+          sudo -nH apt-get -qyu install libevent-dev autoconf automake
+          echo "::endgroup::"
+
+          # tune environment
+          echo "::set-env name=SED::sed"
+
+          dpkg -l gcc\* clang\* libevent\*
+
+      - name: "Setup / Mac"
+        if: ${{runner.os == 'macOS'}}
+        run: |
+          echo "::group::install"
+          brew install patchutils gnu-sed libevent-dev autoconf automake
+          echo "::endgroup::"
+          #echo "::add-path::/usr/local/opt/flex/bin"
+          echo "::set-env name=SED::gsed"
+
+      - name: "Configure"
+        run: |
+          ./autogen.sh
+          ./configure --prefix=${GITHUB_WORKSPACE}/testinstall
+
+      - name: "Build"
+        run: make
+
+      - name: "Install"
+        run: make install
+
+      - name: "Test"
+        run: make check
+
+  mingw:
+    name: ${{matrix.test.os}}, ${{matrix.test.mingw}}
+    runs-on: ${{matrix.test.os}}
+    strategy:
+      matrix:
+        test:
+          - {os: "windows-2016", arch: i686, mingw: mingw32, conf: ""}
+          - {os: "windows-2019", arch: x86_64, mingw: mingw64, conf: ""}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v2
+
+      - name: "Setup MSYS"
+        shell: cmd
+        run: |
+          echo ::add-path::C:\msys64\usr\bin
+          echo ::add-path::C:\msys64\${{matrix.test.mingw}}\bin
+
+      - name: "Install / mingw / ${{matrix.test.arch}}"
+        shell: bash
+        run: |
+          pacman -S --noconfirm --needed \
+            mingw-w64-${{matrix.test.arch}}-libevent \
+            autoconf automake
+
+      - name: "Configure"
+        shell: bash
+        run: |
+          ./autogen.sh
+          ./configure --prefix=${GITHUB_WORKSPACE}/testinstall
+
+      - name: "Make"
+        shell: bash
+        run: make
+
+      - name: "Install"
+        shell: bash
+        run: make install
+
+      - name: "Test"
+        shell: bash
+        run: make check
+
