@@ -240,7 +240,9 @@ typedef enum { true=1, false=0 } bool;
 #endif
 
 /** Check printf-style format and arg sanity */
-#if _COMPILER_GNUC(4,0) || __has_attribute(printf)
+#if _COMPILER_GNUC(4,5) || __has_attribute(gnu_printf)
+#define _PRINTF(fmtpos, argpos) __attribute__((format(gnu_printf, fmtpos, argpos)))
+#elif _COMPILER_GNUC(4,0) || __has_attribute(printf)
 #define _PRINTF(fmtpos, argpos) __attribute__((format(printf, fmtpos, argpos)))
 #else
 #define _PRINTF(fmtpos, argpos)
