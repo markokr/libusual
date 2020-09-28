@@ -39,7 +39,7 @@ if test "x$xhost" = "x"; then
   xhost=`uname -s`
 fi
 case "$xhost" in
-*cygwin* | *mingw* | *pw32* | *MINGW*)
+*cygwin* | *mingw* | *pw32* | *MINGW* | *MSYS*)
    LIBS="$LIBS -lws2_32"
    PORTNAME=win32;;
 *) PORTNAME=unix ;;
