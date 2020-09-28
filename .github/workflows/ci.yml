@@ -78,7 +78,7 @@ jobs:
     strategy:
       matrix:
         test:
-          #- {os: "windows-2016", arch: i686, mingw: mingw32, conf: ""}
+          - {os: "windows-2016", arch: i686, mingw: mingw32, conf: ""}
           - {os: "windows-2019", arch: x86_64, mingw: mingw64, conf: ""}
     steps:
       - name: "Checkout"
