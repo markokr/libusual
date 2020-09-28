@@ -42,7 +42,7 @@ regtest_system_SOURCES = \
 	tinytest.c tinytest.h tinytest_macros.h
 
 # build regtest_system against actual library
-regtest_system_LDADD = -static ../libusual.la
+regtest_system_LDADD = ../libusual.la
 regtest_system_LIBS = $(TLS_LIBS) $(LIBEVENT_LIBS) $(LIBS)
 regtest_system_LDFLAGS = $(TLS_LDFLAGS)
 regtest_system_CPPFLAGS = -I.. -I. $(TLS_CPPFLAGS) $(LIBEVENT_CFLAGS)
@@ -56,7 +56,7 @@ regtest_compat_SOURCES := $(regtest_system_SOURCES)
 nodist_regtest_compat_SOURCES = test_config.h
 
 connect_SOURCES = connect-tls.c
-connect_LDADD = -static ../libusual.la
+connect_LDADD = ../libusual.la
 connect_LIBS = $(TLS_LIBS) $(LIBS)
 connect_LDFLAGS = $(TLS_LDFLAGS)
 connect_CPPFLAGS = -I.. -I. $(TLS_CPPFLAGS)
