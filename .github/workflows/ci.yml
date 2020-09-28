@@ -96,6 +96,7 @@ jobs:
           pacman -Ss openssl
           pacman -S --noconfirm --needed \
             mingw-w64-${{matrix.test.arch}}-libevent \
+            mingw-w64-${{matrix.test.arch}}-openssl \
             autoconf automake
 
       - name: "Configure"
