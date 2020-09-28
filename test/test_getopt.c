@@ -63,7 +63,10 @@ static const char *xgetopt(const char *opts, const struct option *lopts, ...)
 static void test_getopt(void *_)
 {
 	str_check(xgetopt("ab:", NULL, "-abFOO", "zzz", NULL), "a,b=FOO|zzz");
+#ifdef NEED_USUAL_GETOPT
+	/* system getopt may or may not be posixly-correct */
 	str_check(xgetopt("ab:", NULL, "-a", "zzz", "-bFOO", NULL), "a,b=FOO|zzz");
+#endif
 	str_check(xgetopt("ab:", NULL, "-b", "FOO", "-", "--", "-a", NULL), "b=FOO|-|-a");
 	str_check(xgetopt("ab:", NULL, "--foo", NULL), "ERR");
 end:;
