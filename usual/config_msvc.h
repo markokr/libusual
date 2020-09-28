@@ -44,9 +44,8 @@
 /* Define to request cleaner win32 headers. */
 #define WIN32_LEAN_AND_MEAN 1
 
-/* Define to max win32 API version (0x0501=XP). */
-//#define WINVER 0x0501
-#define WINVER 0x0600
+/* Define to max win32 API version (0x0601=Windows7). */
+#define _WIN32_WINNT 0x0601
 
 /* Define WORDS_BIGENDIAN to 1 if your processor stores words with the most
    significant byte first (like Motorola and SPARC, unlike Intel). */
