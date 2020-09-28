@@ -49,7 +49,7 @@ AC_MSG_RESULT([$PORTNAME])
 dnl Set the flags before any feature tests.
 if test "$PORTNAME" = "win32"; then
   AC_DEFINE([WIN32_LEAN_AND_MEAN], [1], [Define to request cleaner win32 headers.])
-  AC_DEFINE([WINVER], [0x0600], [Define to max win32 API version (0x0600=Vista).])
+  AC_DEFINE([_WIN32_WINNT], [0x0601], [Define to max win32 API version (0x0601=Windows7).])
 fi
 AC_DEFINE([_GNU_SOURCE], [1], [Define to get some GNU functions in headers.])
 
