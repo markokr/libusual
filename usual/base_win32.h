@@ -157,11 +157,20 @@ static inline struct group *getgrgid(gid_t gid) { return NULL; }
 
 #endif
 
-#define PRIdZ	"Id"
-#define PRIiZ	"Ii"
-#define PRIoZ	"Io"
-#define PRIuZ	"Iu"
-#define PRIxZ	"Ix"
-#define PRIXZ	"IX"
+#ifndef _WIN64
+#define PRIdZ	"I32d"
+#define PRIiZ	"I32i"
+#define PRIoZ	"I32o"
+#define PRIuZ	"I32u"
+#define PRIxZ	"I32x"
+#define PRIXZ	"I32X"
+#else
+#define PRIdZ	"I64d"
+#define PRIiZ	"I64i"
+#define PRIoZ	"I64o"
+#define PRIuZ	"I64u"
+#define PRIxZ	"I64x"
+#define PRIXZ	"I64X"
+#endif
 
 #endif
