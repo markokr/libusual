@@ -93,9 +93,6 @@ static void test_win32(void *_p)
 {
 	/* make sure version is in sync */
 	int_check(WINVER, _WIN32_WINNT);
-
-	/* make PORTNAME is correct */
-	str_check(PORTNAME, "win32");
 end:;
 }
 #endif
