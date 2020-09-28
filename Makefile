@@ -124,10 +124,11 @@ install-local:
 	@$(MKDIR_P) $(DESTDIR)$(includedir)/usual/hashing
 	@$(MKDIR_P) $(DESTDIR)$(includedir)/usual/crypto
 	@$(MKDIR_P) $(DESTDIR)$(includedir)/usual/tls
-	@for hdr in $(USUAL_HEADERS); do \
+	@set -x; for hdr in $(USUAL_HEADERS); do \
 		echo Filtering $$hdr; \
 		$(SED) -f mk/safe-headers.sed $$hdr \
-		> $(DESTDIR)$(includedir)/$$hdr; \
+		> $(DESTDIR)$(includedir)/$$hdr \
+		|| exit 1; \
 	done
 
 # Give proper error message
