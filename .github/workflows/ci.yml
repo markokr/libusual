@@ -93,6 +93,7 @@ jobs:
       - name: "Install / mingw / ${{matrix.test.arch}}"
         shell: bash
         run: |
+          pacman -Ss openssl
           pacman -S --noconfirm --needed \
             mingw-w64-${{matrix.test.arch}}-libevent \
             autoconf automake
