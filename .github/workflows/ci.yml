@@ -112,7 +112,9 @@ jobs:
 
       - name: "Make"
         shell: bash
-        run: make V=1
+        run: |
+          make
+          make -C test
 
       - name: "Install"
         shell: bash
@@ -122,6 +124,5 @@ jobs:
         shell: bash
         run: |
           cd test
-          make
-          ./regtest_system
+          ./regtest_system.exe
 
