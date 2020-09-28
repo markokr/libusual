@@ -101,7 +101,7 @@ jobs:
         shell: bash
         run: |
           ./autogen.sh
-          ./configure --prefix=${GITHUB_WORKSPACE}/testinstall
+          ./configure --prefix=./testinstall
           cat config.mak
           cc -v
           uname -s
