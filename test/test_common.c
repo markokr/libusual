@@ -2,6 +2,7 @@
 
 #include <locale.h>
 
+#include <usual/logging.h>
 #include <usual/time.h>
 #include <usual/psrandom.h>
 
@@ -52,9 +53,15 @@ const char *tdata(const char *fn)
 
 int main(int argc, const char *argv[])
 {
+#ifdef WIN32
+	WSADATA wsaData;
+
+        if (WSAStartup(MAKEWORD(2,0), &wsaData))
+                die("could not start the network subsystem");
+#endif
+
 	if (getenv("USE_LOCALE"))
 		setlocale(LC_ALL, "");
-
 	test_seed1 = pseudo_random();
 	test_seed2 = pseudo_random();
 	pseudo_random_seed(test_seed1, test_seed2);
