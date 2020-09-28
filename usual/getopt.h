@@ -40,7 +40,7 @@
 #include <usual/base.h>
 
 #ifndef NEED_USUAL_GETOPT
-#if !defined(HAVE_GETOPT_H) || !defined(HAVE_GETOPT) || !defined(HAVE_GETOPT_LONG)
+#if !defined(HAVE_GETOPT_H) || !defined(HAVE_GETOPT) || !defined(HAVE_GETOPT_LONG) || defined(WIN32)
 #define NEED_USUAL_GETOPT
 #endif
 #endif
