@@ -104,6 +104,8 @@ jobs:
           ./configure --prefix=${GITHUB_WORKSPACE}/testinstall
           cat config.mak
           cc -v
+          uname -s
+          uname -a
 
       - name: "Make"
         shell: bash
