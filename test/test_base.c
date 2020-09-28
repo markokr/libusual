@@ -88,9 +88,24 @@ end:;
 
 #pragma GCC diagnostic pop
 
+#ifdef WIN32
+static void test_win32(void *_p)
+{
+	/* make sure version is in sync */
+	int_check(WINVER, _WIN32_WINNT);
+
+	/* make PORTNAME is correct */
+	str_check(PORTNAME, "win32");
+end:;
+}
+#endif
+
 struct testcase_t base_tests[] = {
 	{ "ptr", test_ptr },
 	{ "misc", test_misc },
 	{ "reallocarray", test_reallocarray },
+#ifdef WIN32
+	{ "win32", test_win32 },
+#endif
 	END_OF_TESTCASES
 };
